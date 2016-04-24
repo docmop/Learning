@@ -44,13 +44,14 @@ public class Client {
 			port = defaultPort;
 		}
 		
-		System.out.println("Connecting to: " + serverAdress + "using port: " + port);
 		client.run(serverAdress, port);
 	}
 	
 	public void run(String serverAdress, int port) {
 		String outgoingMessage = "";
 		Scanner stdin = new Scanner(System.in);
+		
+		System.out.println("Connecting to: " + serverAdress + " using port: " + port);
 		
 		try {
 			while(!outgoingMessage.toLowerCase().trim().equals("exit")) {

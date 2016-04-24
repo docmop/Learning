@@ -34,13 +34,14 @@ public class Server {
 			port = defaultPort;
 		}
 		
-		System.out.println("Using port: " + port);
 		server.run(port);
 	}
 
 	private void run(int port) {
 		String incomingMessage;
 		ServerSocket welcomeSocket;
+		
+		System.out.println("Using port: " + port);
 		
 		try {
 			welcomeSocket = new ServerSocket(port);
