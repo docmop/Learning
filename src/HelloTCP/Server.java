@@ -24,11 +24,17 @@ public class Server {
 		
 		int port;
 		
-		if(args.length > 0)
+		if(args.length > 0) {
 			port = Integer.parseInt(args[0]);
-		else
+			
+			if(port < 0) {
+				port = defaultPort;
+			}
+		} else {
 			port = defaultPort;
+		}
 		
+		System.out.println("Using port: " + port);
 		server.run(port);
 	}
 

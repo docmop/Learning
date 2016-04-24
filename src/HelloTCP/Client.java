@@ -28,16 +28,23 @@ public class Client {
 		String serverAdress;
 		int port;
 		
-		if(args.length > 0)
+		if(args.length > 0) {
 			serverAdress = args[0];
-		else
+		} else {
 			serverAdress = defaultServerAdress;
+		}
 			
-		if(args.length > 1)
+		if(args.length > 1) {
 			port = Integer.parseInt(args[1]);
-		else
+			
+			if(port < 0 || port > 65535) {
+				port = defaultPort;
+			}
+		} else {
 			port = defaultPort;
+		}
 		
+		System.out.println("Connecting to: " + serverAdress + "using port: " + port);
 		client.run(serverAdress, port);
 	}
 	
