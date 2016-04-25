@@ -21,40 +21,26 @@ public class Server {
 	 */
 	public static void main(String[] args) {
 		Server server = new Server();
-		
-		int port;
-		
-		if(args.length > 0) {
-			port = Integer.parseInt(args[0]);
-			
-			if(port < 0) {
-				port = defaultPort;
-			}
-		} else {
-			port = defaultPort;
-		}
-		
-		server.run(port);
+		server.run();
 	}
 
-	private void run(int port) {
-		String incomingMessage;
+	private void run() {
 		ServerSocket welcomeSocket;
 		
-		System.out.println("Using port: " + port);
+		System.out.println("Server listening on port: " + defaultPort);
 		
 		try {
-			welcomeSocket = new ServerSocket(port);
+			int i = 1;
+			welcomeSocket = new ServerSocket(defaultPort);
 			
 			while(true) {
 				Socket connectionSocket = welcomeSocket.accept();
-				BufferedReader incomingStream =
-						new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-	
-				incomingMessage = incomingStream.readLine();
+				ObjectInputStream incomingStream = new ObjectInputStream(connectionSocket.getInputStream());
 				
-				System.out.println("RECEIVED: " + incomingMessage);
-			}			
+				System.out.println("RECEIVED ("+ i +"): " + incomingStream.readInt());
+				i++;
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

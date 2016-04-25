@@ -5,7 +5,6 @@ package HelloTCP;
 
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 
 /**
  * @author pille
@@ -24,53 +23,22 @@ public class Client {
 	 */
 	public static void main(String[] args) {
 		Client client = new Client();
-		
-		String serverAdress;
-		int port;
-		
-		if(args.length > 0) {
-			serverAdress = args[0];
-		} else {
-			serverAdress = defaultServerAdress;
-		}
-			
-		if(args.length > 1) {
-			port = Integer.parseInt(args[1]);
-			
-			if(port < 0 || port > 65535) {
-				port = defaultPort;
-			}
-		} else {
-			port = defaultPort;
-		}
-		
-		client.run(serverAdress, port);
+		client.run();
 	}
 	
-	public void run(String serverAdress, int port) {
-		String outgoingMessage = "";
-		Scanner stdin = new Scanner(System.in);
-		
-		System.out.println("Connecting to: " + serverAdress + " using port: " + port);
-		
+	public void run() {
 		try {
-			while(!outgoingMessage.toLowerCase().trim().equals("exit")) {
-				Socket clientSocket = new Socket(serverAdress, port);
-				DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-				
-				System.out.println("Enter message to server or type 'exit' to close:");
-				outgoingMessage = stdin.nextLine();
-				
-				outToServer.writeBytes(outgoingMessage + "\n");
-				clientSocket.close();
-			}
+			System.out.println("Connecting to: " + defaultServerAdress + " using port: " + defaultPort);		
+						
+			Socket clientSocket = new Socket(defaultServerAdress, defaultPort);
+			ObjectOutputStream outToServer = new ObjectOutputStream(clientSocket.getOutputStream());
 			
-			stdin.close();
+			System.out.println("Sending Int 1: 123");
+			outToServer.writeInt(123);;
 			
+			clientSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 }
