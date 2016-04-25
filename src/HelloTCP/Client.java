@@ -61,7 +61,7 @@ public class Client {
 				System.out.println("Enter message to server or type 'exit' to close:");
 				outgoingMessage = stdin.nextLine();
 				
-				outToServer.writeBytes(outgoingMessage);
+				outToServer.writeBytes(outgoingMessage + "\n");
 				clientSocket.close();
 			}
 			
